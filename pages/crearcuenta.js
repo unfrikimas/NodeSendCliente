@@ -29,8 +29,9 @@ const CrearCuenta = () => {
           <div className="flex justify-center mt-5">
             <div className="w-full max-w-lg">
               <form
-                className="bg-white rounded shadow-md px-8 pt-6 pb-8 mb-4"
+                className="bg-white rounded-lg shadow-md px-8 pt-6 pb-8 mb-4"
                 onSubmit={formik.handleSubmit}
+                noValidate
               >
                 <div className="mb-4">
                   <label
@@ -94,7 +95,7 @@ const CrearCuenta = () => {
                 </div>
                 <input 
                   type="submit"
-                  className="bg-red-500 hover:bg-gray-900 w-full p-2 text-white uppercase font-bold cursor-pointer"
+                  className="bg-red-500 hover:bg-gray-900 w-full rounded-lg p-2 text-white uppercase font-bold cursor-pointer"
                   value="Crear cuenta"
                 />
               </form>
