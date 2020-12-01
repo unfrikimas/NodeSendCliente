@@ -3,6 +3,7 @@ import Layout from '../components/Layout';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import authContext from '../context/auth/authContext';
+import Alerta from '../components/Alerta';
 
 const CrearCuenta = () => {
 
@@ -10,7 +11,7 @@ const CrearCuenta = () => {
   const AuthContext = useContext(authContext);
 
   //Extrae la funcion o variable que se va a usar del state centralizado
-  const { registrarUsuario } = AuthContext;
+  const { mensaje, registrarUsuario } = AuthContext;
 
   //formulario y validacion con formik y yup
   const formik = useFormik({
@@ -33,6 +34,7 @@ const CrearCuenta = () => {
     <Layout>
       <div className="md:w-4/5 xl:w-3/5 mx-auto mb-32">
         <h2 className="text-4xl font-sans font-bold text-gray-800 text-center my-4">Crear cuenta</h2>
+          { mensaje && <Alerta /> }
           <div className="flex justify-center mt-5">
             <div className="w-full max-w-lg">
               <form
