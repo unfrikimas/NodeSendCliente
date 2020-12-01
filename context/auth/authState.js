@@ -4,7 +4,9 @@ import authReducer from './authReducer';
 
 //importando los types
 import {  
-    REGISTRO_EXITOSO
+    REGISTRO_ERROR,
+    REGISTRO_EXITOSO,
+    LIMPIAR_ALERTA
 } from '../../types';
 
 //importando el cliente axios
@@ -30,10 +32,19 @@ const AuthState = ({children}) => {
             dispatch({
                 type: REGISTRO_EXITOSO,
                 payload: respuesta.data.msg
-            })
+            });
         } catch (error) {
-            console.log(error);
+            dispatch({
+                type: REGISTRO_ERROR,
+                payload: error.response.data.msg
+            })
         }
+        //Limpia la alerta despues de 3 segundos
+        setTimeout(() => {
+            dispatch({
+                type: LIMPIAR_ALERTA
+            })
+        }, 3000);
     };
 
     //usuario autenticado
