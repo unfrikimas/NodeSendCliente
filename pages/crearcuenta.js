@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Layout from '../components/Layout';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import authContext from '../context/auth/authContext';
 
 const CrearCuenta = () => {
+
+  //acceder al state centralizado
+  const AuthContext = useContext(authContext);
+
+  //Extrae la funcion o variable que se va a usar del state centralizado
+  const { registrarUsuario } = AuthContext;
 
   //formulario y validacion con formik y yup
   const formik = useFormik({
@@ -17,8 +24,8 @@ const CrearCuenta = () => {
       email: Yup.string().email('El email no es válido').required('El email es obligatorio'),
       password: Yup.string().required('El password es obligatorio').min(6, 'El password debe tener al menos 6 caracteres')
     }),
-    onSubmit: () => {
-      console.log('Enviando formulario')
+    onSubmit: valores => {
+      registrarUsuario(valores)
     }
   });
 
