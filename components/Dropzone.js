@@ -1,11 +1,15 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import clienteAxios from '../config/axios'; 
 
 const DropZone = () => {
 
+    const onDropRejected = () => {
+        console.log('No se pudo subir...')
+    }
+
     //funcion que detecta el archivo en dropzone
-    const onDrop = useCallback( async (acceptedFiles) => {
+    const onDropAccepted = useCallback( async (acceptedFiles) => {
         
         //crear un formdata
         const formData = new FormData();
@@ -16,7 +20,7 @@ const DropZone = () => {
     }, []);
 
     //extraer contenido de Dropzone
-    const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({onDrop});
+    const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({ onDropAccepted, onDropRejected, maxSize: 1000000 });
 
     const archivos = acceptedFiles.map(archivo => (
         <li
