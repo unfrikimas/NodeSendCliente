@@ -18,7 +18,7 @@ const AuthState = ({children}) => {
 
     //definir el state inicial
     const initialState = {
-        token: '',
+        token: typeof window !== 'undefined' ? localStorage.getItem('token') : '',
         autenticado: null,
         usuario: null,
         mensaje: null
@@ -55,7 +55,7 @@ const AuthState = ({children}) => {
             const respuesta = await clienteAxios.post('/api/auth', datos);
             dispatch({
                 type: LOGIN_EXITOSO,
-                payload: respuesta.data.msg
+                payload: respuesta.data.token
             });
         } catch (error) {
             dispatch({

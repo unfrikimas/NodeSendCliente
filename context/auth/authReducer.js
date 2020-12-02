@@ -18,10 +18,11 @@ const authReducer = (state, action) => {
                 mensaje: action.payload
             }
         case LOGIN_EXITOSO:
+            localStorage.setItem('token', action.payload);
             return {
                 ...state,
                 token: action.payload,
-                mensaje: action.payload
+                autenticado: true
             }
         case LIMPIAR_ALERTA:
             return {
