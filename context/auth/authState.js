@@ -9,7 +9,8 @@ import {
     LOGIN_EXITOSO,
     LOGIN_ERROR,
     LIMPIAR_ALERTA,
-    USUARIO_AUTENTICADO
+    USUARIO_AUTENTICADO,
+    CERRAR_SESION
 } from '../../types';
 
 //importando el cliente axios
@@ -78,16 +79,26 @@ const AuthState = ({children}) => {
         const token = localStorage.getItem('token');
         if(token) {
             tokenAuth(token)
+            try {
+                const respuesta = await clienteAxios.get('/api/auth');
+                dispatch({
+                    type: USUARIO_AUTENTICADO,
+                    payload: respuesta.data.usuario
+                })
+            } catch (error) {
+                dispatch({
+                    type: LOGIN_ERROR,
+                    payload: error.response.data.msg
+                })
+            }            
         }
-        try {
-            const respuesta = await clienteAxios.get('/api/auth');
-            dispatch({
-                type: USUARIO_AUTENTICADO,
-                payload: respuesta.data.usuario
-            })
-        } catch (error) {
-            console.log(error);
-        }
+    }
+
+    //cerrar la sesion
+    const cerrarSesion = () => {
+        dispatch({
+            type: CERRAR_SESION,
+        })
     }
 
     return (
@@ -99,7 +110,8 @@ const AuthState = ({children}) => {
                 mensaje: state.mensaje,
                 registrarUsuario,
                 usuarioAutenticado,
-                iniciarSesion
+                iniciarSesion,
+                cerrarSesion
             }}
         >
             {children}
