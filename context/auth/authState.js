@@ -6,6 +6,8 @@ import authReducer from './authReducer';
 import {  
     REGISTRO_ERROR,
     REGISTRO_EXITOSO,
+    LOGIN_EXITOSO,
+    LOGIN_ERROR,
     LIMPIAR_ALERTA
 } from '../../types';
 
@@ -47,6 +49,28 @@ const AuthState = ({children}) => {
         }, 3000);
     };
 
+    //Autenticar usuarios
+    const iniciarSesion = async datos => {
+        try {
+            const respuesta = await clienteAxios.post('/api/auth', datos);
+            dispatch({
+                type: LOGIN_EXITOSO,
+                payload: respuesta.data.msg
+            });
+        } catch (error) {
+            dispatch({
+                type: LOGIN_ERROR,
+                payload: error.response.data.msg
+            })
+        }
+        //Limpia la alerta despues de 3 segundos
+        setTimeout(() => {
+            dispatch({
+                type: LIMPIAR_ALERTA
+            })
+        }, 3000);
+    }
+
     //usuario autenticado
     const usuarioAutenticado = nombre => {
         dispatch({
@@ -63,7 +87,8 @@ const AuthState = ({children}) => {
                 usuario: state.usuario,
                 mensaje: state.mensaje,
                 registrarUsuario,
-                usuarioAutenticado
+                usuarioAutenticado,
+                iniciarSesion
             }}
         >
             {children}
