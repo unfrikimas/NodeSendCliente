@@ -10,7 +10,16 @@ import {
 
 const appReducer = (state, action) => {
     switch(action.type) {
-
+        case MOSTRAR_ALERTA:
+            return {
+                ...state,
+                mensaje_archivo: action.payload
+            }
+        case LIMPIAR_ALERTA:
+            return {
+                ...state,
+                mensaje_archivo: ''
+            }
         default:
             return state
     }
