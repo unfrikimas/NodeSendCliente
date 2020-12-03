@@ -20,7 +20,7 @@ const Index = () => {
 
   //funcion que copia el enlace
   const copiarEnlace = () => {
-    navigator.clipboard.writeText(`${process.env.frontendURL}/${url}`);
+    navigator.clipboard.writeText(`${process.env.frontendURL}/enlaces/${url}`);
     document.getElementById('copiarEnlace').innerHTML="Copiado!";
     document.getElementById('copiarEnlace').className = "block m-auto px-8 py-4 bg-gray-900 rounded-lg p-2 text-white uppercase font-bold cursor-pointer mt-10 focus:outline-none";
     setTimeout(() => {
@@ -37,7 +37,7 @@ const Index = () => {
         ?
           <>
             <p className="text-center text-2xl">
-            <span className="font-bold text-red-700 text-3xl uppercase">Tu URL es</span> { `${process.env.frontendURL}/${url}` }</p> 
+            <span className="font-bold text-red-700 text-3xl uppercase">Tu URL es</span> { `${process.env.frontendURL}/enlaces/${url}` }</p> 
             <button 
                   type="button"
                   id="copiarEnlace"
