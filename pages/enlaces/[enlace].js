@@ -1,7 +1,34 @@
 import React from 'react';
 import Layout from '../../components/Layout';
+import clienteAxios from '../../config/axios';
 
-const Enlace = () => {
+export async function getStaticProps() {
+    const resultado = await clienteAxios.get('/api/enlaces/_sm8rJKDE');
+    console.log(resultado);
+
+    return {
+        props: {
+            enlace: resultado.data
+        }
+    }
+
+}
+
+export async function getStaticPaths() {
+
+    const enlaces = await clienteAxios.get('/api/enlaces');
+
+    return {
+        paths: enlaces.data.enlaces.map(enlace => ({
+            params: { enlace: enlace.url }
+        })),
+        fallback: false
+    }
+
+}
+
+const Enlace = ({enlace}) => {
+    console.log(enlace);
     return (  
         <Layout>
             <h1>Desde enlace</h1>
