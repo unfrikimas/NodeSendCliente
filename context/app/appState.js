@@ -9,7 +9,8 @@ import {
     SUBIR_ARCHIVO_EXITO,
     SUBIR_ARCHIVO_ERROR,
     CREAR_ENLACE_EXITO,
-    CREAR_ENLACE_ERROR
+    CREAR_ENLACE_ERROR,
+    LIMPIAR_STATE
 } from '../../types';
 
 const AppState = ({children}) => {
@@ -85,10 +86,21 @@ const AppState = ({children}) => {
                 payload: resultado.data.msg
             })
         } catch (error) {
-            console.log(error);
+            // console.log(error);
+            dispatch({
+                type: CREAR_ENLACE_ERROR,
+                payload: error.response.data.msg
+            })
         }
 
     };
+
+    //limpiando state
+    const limpiarState = () => {
+        dispatch({
+            type: LIMPIAR_STATE
+        })
+    }
 
 
     return (  
@@ -104,7 +116,8 @@ const AppState = ({children}) => {
                 url: state.url,
                 mostrarAlerta,
                 subirArchivo,
-                crearEnlace
+                crearEnlace,
+                limpiarState
             }}
         >
             {children}
