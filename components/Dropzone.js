@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import clienteAxios from '../config/axios'; 
 import appContext from '../context/app/appContext';
 import authContext from '../context/auth/authContext';
+import Formulario from './Formulario';
 
 const DropZone = () => {
 
@@ -53,9 +54,14 @@ const DropZone = () => {
                     : 
                     <>
                         <h4 className="text-2xl font-bold text-center mb-4">Archivos</h4> 
-                            <ul>
-                                { archivos }
-                            </ul>
+                        <ul>
+                            { archivos }
+                        </ul>
+                        { autenticado ?
+                            <Formulario />
+                        :
+                        null
+                        }
                         <button
                             type="button"
                             className="text-xl bg-blue-700 w-full py-3 rounded-lg text-white my-5 hover:bg-blue-800 focus:outline-none"
