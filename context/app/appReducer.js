@@ -8,7 +8,8 @@ import {
     CREAR_ENLACE_EXITO,
     CREAR_ENLACE_ERROR,
     LIMPIAR_STATE,
-    AGREGAR_PASSWORD
+    AGREGAR_PASSWORD,
+    AGREGAR_DESCARGAS
 } from '../../types';
 
 const appReducer = (state, action) => {
@@ -59,6 +60,11 @@ const appReducer = (state, action) => {
             return {
                 ...state,
                 password: action.payload
+            }
+        case AGREGAR_DESCARGAS:
+            return {
+                ...state,
+                descargas: action.payload
             }
         default:
             return state

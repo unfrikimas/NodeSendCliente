@@ -11,7 +11,8 @@ import {
     CREAR_ENLACE_EXITO,
     CREAR_ENLACE_ERROR,
     LIMPIAR_STATE,
-    AGREGAR_PASSWORD
+    AGREGAR_PASSWORD,
+    AGREGAR_DESCARGAS
 } from '../../types';
 
 const AppState = ({children}) => {
@@ -111,6 +112,14 @@ const AppState = ({children}) => {
         })
     }
 
+    //Obtener el numero de descargas
+    const agregarDescargas = descargas => {
+        dispatch({
+            type: AGREGAR_DESCARGAS,
+            payload: descargas
+        })
+    }
+
 
     return (  
         <appContext.Provider
@@ -127,7 +136,8 @@ const AppState = ({children}) => {
                 subirArchivo,
                 crearEnlace,
                 limpiarState,
-                agregarPassword
+                agregarPassword,
+                agregarDescargas
             }}
         >
             {children}
