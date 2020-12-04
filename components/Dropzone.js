@@ -2,11 +2,17 @@ import React, { useCallback, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
 import clienteAxios from '../config/axios'; 
 import appContext from '../context/app/appContext';
+import authContext from '../context/auth/authContext';
 
 const DropZone = () => {
 
+    //context de la app
     const AppContext = useContext(appContext);
     const { cargando, mostrarAlerta, subirArchivo, crearEnlace } = AppContext;
+
+    //context de autenticacion
+    const AuthContext = useContext(authContext);
+    const { autenticado } = AuthContext;
 
     const onDropRejected = () => {
         mostrarAlerta('No se pudo subir el archivo, el límite es 1MB. Obten una cuenta gratis para subir archivos más grandes.')

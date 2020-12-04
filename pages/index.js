@@ -15,7 +15,10 @@ const Index = () => {
   const { mensaje_archivo, url } = AppContext;
 
   useEffect(() => {
-    usuarioAutenticado();
+    const token = localStorage.getItem('token');
+    if(token) {
+      usuarioAutenticado();
+    }
   }, [])
 
   //funcion que copia el enlace
