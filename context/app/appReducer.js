@@ -9,7 +9,8 @@ import {
     CREAR_ENLACE_ERROR,
     LIMPIAR_STATE,
     AGREGAR_PASSWORD,
-    AGREGAR_DESCARGAS
+    AGREGAR_DESCARGAS,
+    EXISTE_ENLACE
 } from '../../types';
 
 const appReducer = (state, action) => {
@@ -44,10 +45,16 @@ const appReducer = (state, action) => {
                 ...state,
                 url: action.payload
             }
+        case EXISTE_ENLACE:
+            return {
+                ...state,
+                mensaje_enlace: action.payload
+            }
         case LIMPIAR_STATE:
             return {
                 ...state,
                 mensaje_archivo: '',
+                mensaje_enlace: '',
                 nombre: '',
                 nombre_original: '',
                 cargando: false,

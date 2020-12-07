@@ -12,13 +12,15 @@ import {
     CREAR_ENLACE_ERROR,
     LIMPIAR_STATE,
     AGREGAR_PASSWORD,
-    AGREGAR_DESCARGAS
+    AGREGAR_DESCARGAS,
+    EXISTE_ENLACE
 } from '../../types';
 
 const AppState = ({children}) => {
     
     const initialState = {
         mensaje_archivo: '',
+        mensaje_enlace: '',
         nombre: '',
         nombre_original: '',
         cargando: false,
@@ -32,7 +34,7 @@ const AppState = ({children}) => {
 
     //Muestra una alerta
     const mostrarAlerta = msg => {
-        console.log(msg);
+        // console.log(msg);
         dispatch({
             type: MOSTRAR_ALERTA,
             payload: msg
@@ -42,7 +44,7 @@ const AppState = ({children}) => {
             dispatch({
                 type: LIMPIAR_ALERTA
             })
-        }, 6000);
+        }, 5000);
     }
 
     //sube los archivos al servidor
@@ -97,6 +99,22 @@ const AppState = ({children}) => {
 
     };
 
+    //obtener enlace
+    const obtenerEnlace = async enlace => {
+        try {
+            const resultado = await clienteAxios.get(`/api/enlaces/${enlace}`);
+            dispatch({
+                type: EXISTE_ENLACE,
+                payload: ''
+            })
+        } catch (error) {
+            dispatch({
+                type: EXISTE_ENLACE,
+                // payload: error.response.data.msg
+            })
+        }
+    }
+
     //limpiando state
     const limpiarState = () => {
         dispatch({
@@ -125,6 +143,7 @@ const AppState = ({children}) => {
         <appContext.Provider
             value={{
                 mensaje_archivo: state.mensaje_archivo,
+                mensaje_enlace: state.mensaje_enlace,
                 nombre: state.nombre,
                 nombre_original: state.nombre_original,
                 cargando: state.cargando,
@@ -137,7 +156,8 @@ const AppState = ({children}) => {
                 crearEnlace,
                 limpiarState,
                 agregarPassword,
-                agregarDescargas
+                agregarDescargas,
+                obtenerEnlace
             }}
         >
             {children}
