@@ -22,7 +22,7 @@ const Enlace = ({datos}) => {
         }
 
         try {
-            const consulta = await clienteAxios.post(`http://localhost:4000/api/enlaces/${enlace}`, data);
+            const consulta = await clienteAxios.post(`${process.env.backendURL}/api/enlaces/${enlace}`, data);
             setTienePassword(consulta.data.password);
         } catch (error) {
             mostrarAlerta(error.response.data.msg);
@@ -91,7 +91,7 @@ export async function getServerSideProps(context) {
   const { params, res } = context
   const { enlace } = params;
 
-  const resultado = await fetch(`http://localhost:4000/api/enlaces/${enlace}`);
+  const resultado = await fetch(`${process.env.backendURL}/api/enlaces/${enlace}`);
   const datos = await resultado.json()
     //   console.log(datos)
 
