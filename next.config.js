@@ -1,6 +1,6 @@
 module.exports = {
     env: {
-        backendURL: 'http://localhost:4000',
-        frontendURL: 'http://localhost:3000'
+        backendURL: 'https://powerful-shelf-30692.herokuapp.com/',
+        frontendURL: 'https://nodesend-cliente.unfrikimas.vercel.app/'
     }
 }
